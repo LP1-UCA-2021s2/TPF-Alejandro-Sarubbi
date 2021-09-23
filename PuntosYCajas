@@ -66,7 +66,7 @@ int main(void) {
 //en la posicion del medio se coloca un identificador del jugador que recibe un punto
 //revisando note que la cantidad de espacios necesarios para que sea posible en la matriz son 4*(M-1)
 
-	int tablero[(dimenciones-1)*4][(dimenciones-1)*4];
+	char tablero[(dimenciones-1)*4][(dimenciones-1)*4];
 	for(int c=0; c<=(dimenciones-1)*4;c++)
 	{
 		for(int l=0; l<=(dimenciones-1)*4;l++)
@@ -186,7 +186,7 @@ char selec(char* queelige,char selecc)
 {
 	printf("¿desea seleccionar %s? (s/n)\n",queelige);
 	scanf("%c",&selecc);
-	while(selec!="s" ||	selec!="n" )
+	while(selec!='s' ||	selec!='n' )
 		{
 			printf("(introducir la letra s o la letra n)\n");
 			scanf("%c",&selecc);
@@ -202,23 +202,22 @@ int turno(char tablero,int empieza,int color,int dimencion,int puntos1,int punto
 	
 	if (empieza==1)
 		{
-			char *jugador1,*jugador2;
-			*jugador1="el jugador";
-			*jugador2="la cpu";
-		}else{*jugador2="el jugador";
-		*jugador1="la cpu";}		
+			strcpy(jugador1, "el jugador");
+			strcpy(jugador2, "la cpu");
+		}else{strcpy(jugador2, "el jugador");
+		strcpy(jugador1, "la cpu");}		
 			
 			
 	int varpunto=0,cont4=0;
 	int continua=1;
 	while(continua==1){
-	if(jugador1=="el jugador")
+	if(strcmp(jugador1, "el jugador") == 0)
 	{
 //si hubo un cambio de puntos y es el turno del jugador otra vez aqui se suman esos a su puntaje
 		int *ppuntos1=&puntos1;
 		*ppuntos1=puntos1+varpunto;
 	}
-	if(jugador1=="la cpu")
+	if(strcmp(jugador1, "la cpu") == 0)
 		{
 			int *ppuntos2=&puntos2;
 			*ppuntos2=puntos2+varpunto;
