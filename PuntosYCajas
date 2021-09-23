@@ -20,7 +20,17 @@
 //(valor M que determinará el número de puntos en las filas y columnas del tablero.
 //deben poder ser definidas además de forma aleatoria.
 
-
+char selec(char* queelige,char selecc)
+{
+	printf("¿desea seleccionar %s? (s/n)\n",queelige);
+	scanf("%c",&selecc);
+	while(selec!='s' ||	selec!='n' )
+		{
+			printf("(introducir la letra s o la letra n)\n");
+			scanf("%c",&selecc);
+		}
+	return(selec);
+}
 
 int main(void) {
 	int empieza,dimenciones,numero,color2=0,color1=0;
@@ -172,7 +182,7 @@ int main(void) {
 
 
 
-int colorcheck(color){
+int colorcheck(int color){
 	while(color!=1 && color!=2 && color!=3 && color!=4 && color!=5 && color!=6 && color!=7 && color!=8 && color!=9 && color!=10)
 	{
 	printf("debe ser un numero de la seleccion dada \n");
@@ -182,21 +192,11 @@ int colorcheck(color){
 	return(color);
 }
 
-char selec(char* queelige,char selecc)
-{
-	printf("¿desea seleccionar %s? (s/n)\n",queelige);
-	scanf("%c",&selecc);
-	while(selec!='s' ||	selec!='n' )
-		{
-			printf("(introducir la letra s o la letra n)\n");
-			scanf("%c",&selecc);
-		}
-	return(selec);
-}
+
 
 
 //introduce un turno de la cpu y el jugador
-int turno(char tablero,int empieza,int color,int dimencion,int puntos1,int puntos2)
+int turno(int tablero,int empieza,int color,int dimencion,int puntos1,int puntos2)
 {
 	char jugador1[20 ],jugador2[20];
 	
@@ -224,7 +224,15 @@ int turno(char tablero,int empieza,int color,int dimencion,int puntos1,int punto
 		}
 		
 	int f1=0,f2=0,c1=0,c2=0,varpunto=0,	continua=0;
-	printf("%d",tablero);
+	
+	for(int t=0;t<dimencion-1;t=t++)
+	{
+			for(int y=0;y<dimencion-1;y=y++)
+			{
+				printf("%d",tablero[t][y]);
+			}
+	}
+	
 //si empieza es 1 juega el jugador, o lo hace la cpu
 	
 //anunciar de quien es el turno
@@ -405,25 +413,35 @@ int turno(char tablero,int empieza,int color,int dimencion,int puntos1,int punto
 		switch(color)
 		{
 			case 1:
-				letra="A";
+				strcpy(letra, "A");
+				
 			case 2:
-				letra="V";
+				strcpy(letra, "V");
+				
 			case 3:
-				letra="Cy";
+				
+				strcpy(letra, "Cy");
 			case 4:
-				letra="R";
+				
+				strcpy(letra, "R");
 			case 5 :
-				letra="Mg";
+				
+				strcpy(letra, "Mg");
 			case 6:
-				letra="Mr";
+				
+				strcpy(letra, "Mr");
 			case 7:
-				letra="GC";
+				
+				strcpy(letra, "GC");
 			case 8:
-				letra="GO";
+				
+				strcpy(letra, "GO");
 			case 9:
-				letra="Cl";
+				
+				strcpy(letra, "Cl");
 			case 10:
-				letra="VC";
+				
+				strcpy(letra, "VC");
 		}
 		
 		
@@ -512,7 +530,12 @@ int turno(char tablero,int empieza,int color,int dimencion,int puntos1,int punto
 //tengo que confirmar que los puntos son validos el numero recibido en caso del primer punto debe ser
 //menor a los limites de la matriz, el segundo punto tiene mas restricciones y debe ser adyacente
 //al primero y la linea formada no puede haber existido antes
-int puntoval(filaocolumna,dimencion,numero,f1)
+
+
+
+
+
+int puntoval(int filaocolumna,int dimencion,int numero,int f1)
 {
 	int size=dimencion/4;
 	filaocolumna=filaocolumna/4;
@@ -537,16 +560,22 @@ int puntoval(filaocolumna,dimencion,numero,f1)
 	return filaocolumna*4;
 }
 
+
+
+
+
 //debe retornar 1 y puede colocarse la linea definida entre los 2 puntos y 0 si no, para permitirse los puntos deben
 //ser adyacentes
-int coloclin(f1,c1,f2,c2,tablero,color){
+
+
+int coloclin(int f1,int c1,int f2,int c2,int tablero[][],int color){
 	int v=0;
 	
 //inicializo una variable v dependiendo de cual de los condicionales si entre cambiara de valor, si no entra en 
 //ninguno retornara 0 y el bucle forzara otra eleccion de puntos, con estos valores puedo saber como es la linea 
 //formada, puesto que identifica por cual de los si paso ya que en cada caso seria diferente, lo que ayudaria a
 //la hora de ver si se creo un cuadrado
-	if(f1 == f2 && c1 != c2 && tablero[f1][(c1+c2)/2]!="*")
+	if(f1 == f2 && c1 != c2 && tablero[f1][(c1+c2)/2]!='*')
 		{
 		
 			textcolor(color);
@@ -557,21 +586,21 @@ int coloclin(f1,c1,f2,c2,tablero,color){
 				{
 					char *pa;
 					pa=&tablero[f1][c1+i];
-					*pa = "*";
+					*pa = '*';
 					v=1;
 				}
 				if( c1 == c2 + 4)
 				{
 					char *pa;
 					pa=&tablero[f1][c1-i];
-					*pa = "*";
+					*pa = '*';
 					
 					v=2;
 				}
 			}
 		}
 
-	if(c1 == c2 && f1 != f2 && tablero[(f1+f2)/2][c1]!="*")
+	if(c1 == c2 && f1 != f2 && tablero[(f1+f2)/2][c1]!='*')
 		{
 		textcolor(color);
 
@@ -581,7 +610,7 @@ int coloclin(f1,c1,f2,c2,tablero,color){
 					{
 						char *pa;
 						pa=&tablero[f1+i][c1];
-						*pa = "*";
+						*pa = '*';
 						
 						v=3;
 					}
@@ -589,7 +618,7 @@ int coloclin(f1,c1,f2,c2,tablero,color){
 					{
 						char *pa;
 						pa=&tablero[f1-i][c1];
-						*pa = "*";
+						*pa = '*';
 						
 						v=4;
 					}
