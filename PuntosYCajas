@@ -29,7 +29,7 @@ char selec(char* queelige,char selecc)
 			printf("(introducir la letra s o la letra n)\n");
 			scanf("%c",&selecc);
 		}
-	return(selec);
+	return(selecc);
 }
 
 int main(void) {
