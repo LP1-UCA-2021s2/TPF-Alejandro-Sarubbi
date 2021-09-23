@@ -196,7 +196,7 @@ int colorcheck(int color){
 
 
 //introduce un turno de la cpu y el jugador
-int turno(int tablero,int empieza,int color,int dimencion,int puntos1,int puntos2)
+int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int puntos2)
 {
 	char jugador1[20 ],jugador2[20];
 	
