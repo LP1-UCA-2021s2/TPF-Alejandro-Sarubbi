@@ -78,8 +78,7 @@ int main(void) {
 //en la posicion del medio se coloca un identificador del jugador que recibe un punto
 //revisando note que la cantidad de espacios necesarios para que sea posible en la matriz son 4*(M-1)
 
-	int *punterodimencion;
-	punterodimencion=&dimenciones;
+	
 	char tablero[(dimenciones)*4][(dimenciones)*4];
 	for(int c=0; c<=(dimenciones)*4;c++)
 	{
@@ -107,7 +106,7 @@ int main(void) {
 //los colores deben ser diferentes para que el juego funcione, usare la libreria <conio.h> para
 //darle color a mis letras, con el while hare que los colores sean diferentes porque solo saldra del
 //bucle cuando lo sean si los inicializo ambos en el mismo numero
-
+	
 	seleccolor = selec("los colores",seleccolor);
 	if(seleccolor=='s')
 	{
@@ -137,6 +136,9 @@ int main(void) {
 //quien empieza, los colores 1  2 son numeros(del 1 al 10)
 	int juego=1,puntos1=0,puntos2=0,fin=0;
 	
+	
+	
+	
 	while(juego==1 && fin==0)
 //asignar color, cuando termine el turno colocar color 2 y despues colocar otro juego
 	{
@@ -144,7 +146,7 @@ int main(void) {
 		if(empieza=1)
 			{	
 
-				juego=turno(tablero[(dimenciones)*4][(dimenciones)*4],empieza,color1,(dimenciones)*4,puntos1,puntos2);
+				juego=turno(empieza,color1,(dimenciones)*4,puntos1,puntos2,tablero);
 				if( juego==0)
 				{
 //por si el jugador desee rendirse
@@ -157,7 +159,7 @@ int main(void) {
 			}
 		if(empieza=0)
 		{
-			juego=turno(tablero,empieza,color2,(dimenciones)*4,puntos1,puntos2);
+			juego=turno(empieza,color2,(dimenciones)*4,puntos1,puntos2, tablero);
 			if (juego==0)
 //cuando termina el juego se decide el ganador por los puntos
 					{
@@ -195,12 +197,13 @@ int colorcheck(int color){
 	}
 	return(color);
 }
+//============================================================================================================================================
 
 
 
 //============================================================================================================================================
 //introduce un turno de la cpu y el jugador
-int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int color,int dimencion,int puntos1,int puntos2)
+int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tablero[dimencion][dimencion])
 {
 	char jugador1[20 ],jugador2[20];
 	
@@ -248,7 +251,7 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 	printf(" %d",puntos2);
 	
 //en caso de que no haya movimientos posibles se suman las lineas posibles verticales y horizontales si son 0 no hay linea ni columna disponible
-	for(int k=0;k<dimencion-1;k=k+4)
+	for(int k=0;k<dimencion;k=k+4)
 	{
 			for(int l=0;l<dimencion;l=l+4)
 			{
@@ -306,9 +309,10 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 					convert=1;
 					horizvert=0;
 				}
+			int contador3=0;
 			if	(horizvert==0)
 			{
-				int contador=0,limite,contador2=0,contador3=0;
+				int contador=0,limite,contador2=0;
 				limite=rand()%70;
 				limite=limite+5;
 //si da cerca de 80 vueltas por el circuito y no puso la linea entonces sale del bucle porque 
@@ -319,38 +323,38 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 				{
 						for(int r=0;r<dimencion;r++)
 						{
-							//para ver si hay movimientos posibles
-							if (tablero[2+e*4][r*4)=='*')
+//para ver si hay movimientos posibles
+							if (tablero[2+e*4][r*4]=='*')
 								{
 									contador3++;
 								}
-							//para colocar de forma random la linea
-							if(tablero[(e*4+(e+1)*4)/2][r*4]==' '
+//para colocar de forma random la linea
+							if(tablero[(e*4+(e+1)*4)/2][r*4]==' ')
 								{
 									contador++;
 								}
-							//para asegurarse de que no continue de forma infinita
+//para asegurarse de que no continue de forma infinita
 							if(e==dimencion && r==dimencion)
 								{
 									contador2++;
 									
 								}
-							//cuando el contador que aumenta una vez cada vez que pasa por una casilla que puede 
-							//llenar alcanza el numero random alli coloca la linea
+//cuando el contador que aumenta una vez cada vez que pasa por una casilla que puede 
+//llenar alcanza el numero random alli coloca la linea
 							
 							if(contador==limite-1)
 								{
-								if convert=0
-										{
-								validlin=coloclin(e,r,e+4,r,tablero,color);
-										}
+								if (convert=0)
+									{
+										validlin=coloclin(e,r,e+4,r,tablero,color);
+									}
 								}
-								if convert=1
-										{
-								int o=e,p=r;
-								horizvert=1;
-										}
-						}
+								if (convert=1)
+									{
+										int o=e,p=r;
+										horizvert=1;
+									}
+								}
 					}
 				}
 			
@@ -360,7 +364,7 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 				{
 					horizvert=1;
 				}
-			if horizvert==1
+			if (horizvert==1)
 			{
 				int contador=0,limite,contador2=0,contador3=0;
 				limite=rand()%70;
@@ -371,11 +375,11 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 					{
 						for(int r=0;r<dimencion;r++)
 						{
-							if (tablero[2+e*4][r*4)=='*')
+							if (tablero[2+e*4][r*4]=='*')
 								{
 									contador3++;
 								}
-							if(tablero[(e*4][r*4+(r+1)*4)/2]==' '
+							if(tablero[e*4][(r*4+(r+1)*4)/2]==' ')
 								{
 									contador++;
 								}
@@ -388,9 +392,9 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 								{
 								validlin=coloclin(e,r,e,r+4,tablero,color);
 								}
-							if contador3==(dimencion)*dimencion
+							if (contador3==(dimencion)*dimencion)
 								{
-									if convert=1
+									if (convert=1)
 											{
 										if (o!=0 && p!=0){
 										validlin=coloclin(o,p,o,p+4,tablero,color);
@@ -544,11 +548,10 @@ int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int colo
 
 int puntoval(int filaocolumna,int dimencion,int numero,int f1)
 {
-	int size=dimencion/4;
-	filaocolumna=filaocolumna/4;
-	while(filaocolumna < 1 || size < filaocolumna)
+	
+	while(filaocolumna < 2 || dimencion < filaocolumna)
 	{
-		printf("el numero debe ser del 1 al %d \n",size);
+		printf("el numero debe ser del 1 al %d \n",dimencion);
 		scanf("%d",filaocolumna);
 //originalmente esta parte y la anterior estban separadas pero se me ocurrio que podrian colocar
 //con la segunda parte fuera de la matriz otra vez, le numero sera 2 solo si el punto es el segundo
@@ -556,7 +559,7 @@ int puntoval(int filaocolumna,int dimencion,int numero,int f1)
 //anteriores +1 -1 o 0 pero la fila y columna no pueden ser 0 a la vez
 		if (numero==2)
 		{
-			while(filaocolumna != f1 + 1 ||  filaocolumna != f1 - 1 ||  filaocolumna != f1)
+			while(filaocolumna != f1 + 1 ||  filaocolumna != f1 - 1 )
 			{
 				printf("el punto debe ser adyacente al anterior %d (+1 +0 -1) \n",f1);
 				scanf("%d",filaocolumna);
