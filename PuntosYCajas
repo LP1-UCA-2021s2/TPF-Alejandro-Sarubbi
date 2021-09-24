@@ -67,7 +67,7 @@ int main(void) {
 			numero = rand() % 3;
 			dimenciones=dimenciones+numero;
 		}
-		dimenciones=dimenciones+3;
+		dimenciones=dimenciones+2;
 	}
 //para representar el tablero elegi representar las lineas con 4 asteriscos ****, apareceran
 //asteriscos en todos los nodos al inicio y cuando un jugador quiera colocar una linea
@@ -76,10 +76,10 @@ int main(void) {
 //en la posicion del medio se coloca un identificador del jugador que recibe un punto
 //revisando note que la cantidad de espacios necesarios para que sea posible en la matriz son 4*(M-1)
 
-	char tablero[(dimenciones-1)*4][(dimenciones-1)*4];
-	for(int c=0; c<=(dimenciones-1)*4;c++)
+	char tablero[(dimenciones)*4][(dimenciones)*4];
+	for(int c=0; c<=(dimenciones)*4;c++)
 	{
-		for(int l=0; l<=(dimenciones-1)*4;l++)
+		for(int l=0; l<=(dimenciones)*4;l++)
 		{
 			if(c%4==0 && l%4==0)
 			{
@@ -140,7 +140,7 @@ int main(void) {
 		if(empieza=1)
 			{	
 
-				juego=turno(tablero[(dimenciones-1)*4][(dimenciones-1)*4],empieza,color1,(dimenciones-1)*4,puntos1,puntos2);
+				juego=turno(tablero[(dimenciones)*4][(dimenciones)*4],empieza,color1,(dimenciones)*4,puntos1,puntos2);
 				if( juego==0)
 				{
 //por si el jugador desee rendirse
@@ -153,7 +153,7 @@ int main(void) {
 			}
 		if(empieza=0)
 		{
-			juego=turno(tablero,empieza,color2,(dimenciones-1)*4,puntos1,puntos2);
+			juego=turno(tablero,empieza,color2,(dimenciones)*4,puntos1,puntos2);
 			if (juego==0)
 //cuando termina el juego se decide el ganador por los puntos
 					{
@@ -225,9 +225,9 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 		
 	int f1=0,f2=0,c1=0,c2=0,varpunto=0,	continua=0;
 	
-	for(int t=0;t<dimencion-1;t=t++)
+	for(int t=0;t<dimencion;t=t++)
 	{
-			for(int y=0;y<dimencion-1;y=y++)
+			for(int y=0;y<dimencion;y=y++)
 			{
 				printf("%d",tablero[t][y]);
 			}
@@ -243,10 +243,10 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 	printf("%s",jugador2);
 	printf(" %d",puntos2);
 	
-//en caso de que no haya movimientos posibles se suman las lineas posibles verticales y horizontales
+//en caso de que no haya movimientos posibles se suman las lineas posibles verticales y horizontales si son 0 no hay linea ni columna disponible
 	for(int k=0;k<dimencion-1;k=k+4)
 	{
-			for(int l=0;l<dimencion-1;l=l+4)
+			for(int l=0;l<dimencion;l=l+4)
 			{
 				if(tablero[k*4+2][l*4]==' '){
 						cont4++;}
@@ -259,7 +259,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 	int validlin=0;
 	while(f1==f2 && c1==c2 || validlin==0)
 	{
-		if(jugador1=="el jugador")
+		if(strcmp(jugador1, "el jugador") == 0)
 		{
 //si la suma las lineas posibles verticales y horizontales es 0 se pasa el turno para que 
 //termine el juego en el turno de 	la cpu 
@@ -293,7 +293,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 //se detenga y elija los puntos
 
 //															esta estrategia debe cambiar
-		if(jugador1=="la cpu")
+		if(strcmp(jugador1, "la cpu") == 0)
 		{
 			int convert=0;
 			int horizvert=rand()%2;
@@ -311,7 +311,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 //se que no lo pondra a esa altura
 				while(contador<limite && contador2<80)
 				{
-					for(int e=0;e<dimencion-1;e++)
+					for(int e=0;e<dimencion;e++)
 				{
 						for(int r=0;r<dimencion;r++)
 						{
@@ -326,7 +326,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 									contador++;
 								}
 							//para asegurarse de que no continue de forma infinita
-							if(e==dimencion-1 && r==dimencion-1)
+							if(e==dimencion && r==dimencion)
 								{
 									contador2++;
 									
@@ -352,7 +352,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 			
 			}
 //si se cumple esta condicion habra sido porque n hay forma de rellenar un espacio horizontal
-			if (contador3==(dimencion-1)*dimencion)
+			if (contador3==(dimencion)*dimencion)
 				{
 					horizvert=1;
 				}
@@ -365,7 +365,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 				{
 					for(int e=0;e<dimencion;e++)
 					{
-						for(int r=0;r<dimencion-1;r++)
+						for(int r=0;r<dimencion;r++)
 						{
 							if (tablero[2+e*4][r*4)=='*')
 								{
@@ -375,7 +375,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 								{
 									contador++;
 								}
-							if(e==dimencion-1 && r==dimencion-1)
+							if(e==dimencion && r==dimencion)
 								{
 									contador2++;
 									
@@ -384,7 +384,7 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 								{
 								validlin=coloclin(e,r,e,r+4,tablero,color);
 								}
-							if contador3==(dimencion-1)*dimencion
+							if contador3==(dimencion)*dimencion
 								{
 									if convert=1
 											{
