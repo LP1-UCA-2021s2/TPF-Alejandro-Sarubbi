@@ -20,6 +20,8 @@
 //(valor M que determinará el número de puntos en las filas y columnas del tablero.
 //deben poder ser definidas además de forma aleatoria.
 
+
+//============================================================================================================================================
 char selec(char* queelige,char selecc)
 {
 	printf("¿desea seleccionar %s? (s/n)\n",queelige);
@@ -31,7 +33,7 @@ char selec(char* queelige,char selecc)
 		}
 	return(selecc);
 }
-
+//============================================================================================================================================
 int main(void) {
 	int empieza,dimenciones,numero,color2=0,color1=0;
 	char selecdimencion='a',selecempieza='a',seleccolor='a';
@@ -76,6 +78,8 @@ int main(void) {
 //en la posicion del medio se coloca un identificador del jugador que recibe un punto
 //revisando note que la cantidad de espacios necesarios para que sea posible en la matriz son 4*(M-1)
 
+	int *punterodimencion;
+	punterodimencion=&dimenciones;
 	char tablero[(dimenciones)*4][(dimenciones)*4];
 	for(int c=0; c<=(dimenciones)*4;c++)
 	{
@@ -181,7 +185,7 @@ int main(void) {
 }
 
 
-
+//============================================================================================================================================
 int colorcheck(int color){
 	while(color!=1 && color!=2 && color!=3 && color!=4 && color!=5 && color!=6 && color!=7 && color!=8 && color!=9 && color!=10)
 	{
@@ -194,9 +198,9 @@ int colorcheck(int color){
 
 
 
-
+//============================================================================================================================================
 //introduce un turno de la cpu y el jugador
-int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int puntos2)
+int turno(int tablero[*punterodimencion][*punterodimencion],int empieza,int color,int dimencion,int puntos1,int puntos2)
 {
 	char jugador1[20 ],jugador2[20];
 	
@@ -526,6 +530,9 @@ int turno(int tablero[][],int empieza,int color,int dimencion,int puntos1,int pu
 //si regresa 1 el juego continua, regresa 0 y para
 	return(1);
 }
+//============================================================================================================================================
+
+
 
 //tengo que confirmar que los puntos son validos el numero recibido en caso del primer punto debe ser
 //menor a los limites de la matriz, el segundo punto tiene mas restricciones y debe ser adyacente
@@ -561,7 +568,7 @@ int puntoval(int filaocolumna,int dimencion,int numero,int f1)
 }
 
 
-
+//============================================================================================================================================
 
 
 //debe retornar 1 y puede colocarse la linea definida entre los 2 puntos y 0 si no, para permitirse los puntos deben
@@ -631,7 +638,7 @@ int coloclin(int f1,int c1,int f2,int c2,int tablero[][],int color){
 
 
 
-
+//============================================================================================================================================
 
 //para estrategia
 //para la cpu, debe revisar el tablero, si puede encerrar casilla considera proximo mov,
