@@ -206,7 +206,7 @@ int colorcheck(int color){
 int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tablero[dimencion][dimencion])
 {
 	char jugador1[20 ],jugador2[20];
-	
+	int o=0,p=0;
 	if (empieza==1)
 		{
 			strcpy(jugador1, "el jugador");
@@ -346,7 +346,7 @@ int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tabler
 								{
 								if (convert=0)
 									{
-										validlin=coloclin(e,r,e+4,r,tablero,color);
+										validlin=coloclin(dimencion,e,r,e+4,r,tablero,color);
 									}
 								}
 								if (convert=1)
@@ -390,14 +390,14 @@ int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tabler
 								}
 							if(contador==limite-1)
 								{
-								validlin=coloclin(e,r,e,r+4,tablero,color);
+								validlin=coloclin(dimencion,e,r,e,r+4,tablero,color);
 								}
 							if (contador3==(dimencion)*dimencion)
 								{
 									if (convert=1)
 											{
 										if (o!=0 && p!=0){
-										validlin=coloclin(o,p,o,p+4,tablero,color);
+										validlin=coloclin(dimencion,o,p,o,p+4,tablero,color);
 										}else{return 0;}
 										
 									
@@ -412,12 +412,12 @@ int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tabler
 		}
 //agregar revisar que no hay nada antes
 	
-			validlin=coloclin(f1,c1,f2,c2,tablero,color);
+			validlin=coloclin(dimencion,f1,c1,f2,c2,tablero,color);
 //hay que verificar que la linea no este ya en el tablero, para esto pense en ver como el la linea
 //con eso sabre que posicion ente ellas debo observar, si en esa posicion hay una * sabre que hay una
 //linea alli, se repetira el while hasta que elijan una posicion no ocupada o se rindan
 		
-		char letra[2];
+		char letra[3];
 		switch(color)
 		{
 			case 1:
@@ -578,7 +578,7 @@ int puntoval(int filaocolumna,int dimencion,int numero,int f1)
 //ser adyacentes
 
 
-int coloclin(int f1,int c1,int f2,int c2,int tablero[][],int color){
+int coloclin(int dimencion,int f1,int c1,int f2,int c2,int tablero[dimencion][dimencion],int color){
 	int v=0;
 	
 //inicializo una variable v dependiendo de cual de los condicionales si entre cambiara de valor, si no entra en 
