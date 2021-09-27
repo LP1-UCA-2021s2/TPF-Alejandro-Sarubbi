@@ -22,10 +22,10 @@
 
 
 //============================================================================================================================================
-char selec(char* queelige,char selecc)
+char selec(char* queelige,int selecc)
 {
 	printf("¿desea seleccionar %s? (s/n)\n",queelige);
-	scanf("%c",&selecc);
+	scanf("%d",&selecc);
 	while(selec!='s' ||	selec!='n' )
 		{
 			printf("(introducir la letra s o la letra n)\n");
@@ -36,7 +36,7 @@ char selec(char* queelige,char selecc)
 //============================================================================================================================================
 int main(void) {
 	int empieza,dimenciones,numero,color2=0,color1=0;
-	char selecdimencion='a',selecempieza='a',seleccolor='a';
+	int selecdimencion='a',selecempieza='a',seleccolor='a';
 //coloque el tamaño del tablero primero porque aparte de quizas quien empieza primero es la decisicion mas
 //importante. al ver que selecciono varias veces entre s y n decidi hacer una funcion para eso
 
@@ -203,7 +203,7 @@ int colorcheck(int color){
 
 //============================================================================================================================================
 //introduce un turno de la cpu y el jugador
-int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tablero[dimencion][dimencion])
+int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,char* tablero[dimencion][dimencion])
 {
 	char jugador1[20 ],jugador2[20];
 	int o=0,p=0;
@@ -457,7 +457,12 @@ int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tabler
 		switch (validlin)
 		{
 			case 2:
-				if (tablero[f1+4][c1-2]=="*" && tablero[f1+2][c1-4]=="*" && tablero[f1][c1-2]=="*" && tablero[f1+2][c1]=="*" )
+				if (strcmp(tablero[f1+4][c1-2], "*") == 0 && strcmp(tablero[f1+2][c1-4], "*") == 0 && strcmp(tablero[f1][c1-2], "*") == 0 && strcmp(tablero[f1+2][c1], "*") == 0)
+				    
+				    
+				    
+				    
+				   
 				{
 					textcolor(color);
 					tablero[f1+2][c1+2]==("%s",&letra);
