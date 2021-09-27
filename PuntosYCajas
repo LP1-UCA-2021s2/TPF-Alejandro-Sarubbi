@@ -236,7 +236,7 @@ int turno(int empieza,int color,int dimencion,int puntos1,int puntos2,int tabler
 	{
 			for(int y=0;y<dimencion;y=y++)
 			{
-				printf("%d",tablero[t][y]);
+				printf("%s",tablero[t][y]);
 			}
 	}
 	
@@ -578,7 +578,7 @@ int puntoval(int filaocolumna,int dimencion,int numero,int f1)
 //ser adyacentes
 
 
-int coloclin(int dimencion,int f1,int c1,int f2,int c2,int tablero[dimencion][dimencion],int color){
+int coloclin(int dimencion,int f1,int c1,int f2,int c2,char tablero[dimencion][dimencion],int color){
 	int v=0;
 	
 //inicializo una variable v dependiendo de cual de los condicionales si entre cambiara de valor, si no entra en 
